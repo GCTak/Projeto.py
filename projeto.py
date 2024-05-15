@@ -57,24 +57,18 @@ def visualizacao_grafo(G, pos, edge_labels):
     )
     plt.show()
 
-# Função para cadastrar os bairros
-def cadastrar_bairros(G):
-    bairros = input('Digite o nome do novo bairro: ')
-    G.add_nodes_from(bairros)
-
 # Função principal
 def main():
-    G = grafo()
-    while True:
-        print('\nEscolha uma operação:')
-        print('1. Cadastrar novo bairro')
-        print('2. Cadastrar custos de construção dos segmentos entre bairros vizinhos')
-        print('3. Visualizar o grafo')
-        print('4. Sair')
-        escolha = input('Digite o número da operação desejada: ')
-        
-        if escolha == '1':
-            cadastrar_bairros(G)
+
+    # Definindo o grafo
+    G = grafo()  
+
+    #Passando os parâmetros da função visualizacao_grafo
+    pos = nx.spring_layout(G)  
+    edge_labels = nx.get_edge_attributes(G, 'weight')  
+    
+    # Executando a função visualizacao_grafo
+    visualizacao_grafo(G, pos, edge_labels) 
 
 if __name__ == "__main__":
     main()
