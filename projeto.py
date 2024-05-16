@@ -1,17 +1,16 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 
+# Definindo a lista de bairros globalmente
+bairros = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+
 #Função para criar o grafo
 def grafo():
 
     # Definindo o Grafo
     G = nx.Graph()
 
-    # Definindo os vértices (bairros)
-    bairros = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
-
     # Adicionando arestas direcionadas (segmentos de rede) e seus pesos (custos)
-    # segmentos_de_rede = [(Bairro Origem, Bairro Destino, Custo)]
     segmentos_de_rede = [
         ('A', 'B', {'weight': 7}),
         ('A', 'C', {'weight': 5}),
@@ -57,6 +56,21 @@ def visualizacao_grafo(G, pos, edge_labels):
     )
     plt.show()
 
+# Seu programa deve, por exemplo, permitir que o usuário escolha entre as operações:
+#   1. cadastrar os bairros.
+def menu():
+
+    global bairros  # Usando a lista de bairros globalmente
+
+    print('MENU DE OPERAÇÕES')
+    print('1. Cadastro de bairro')
+    escolha = int(input('Qual operação você gostaria de fazer?\n'))
+    if escolha == 1:
+        novo_bairro = input('Digite o nome do bairro a ser cadastrado: \n')
+        bairros.append(novo_bairro)
+        print('Bairro cadastrado com sucesso!')
+    else: 
+        print('Operação não disponível')
 # Função principal
 def main():
 
@@ -70,5 +84,11 @@ def main():
     # Executando a função visualizacao_grafo
     visualizacao_grafo(G, pos, edge_labels) 
 
+    # Executando o menu de opções
+    menu()
+    # Testar a inserção de bairros
+    '''for bairro in bairros:
+        print(bairro)
+    '''
 if __name__ == "__main__":
     main()
