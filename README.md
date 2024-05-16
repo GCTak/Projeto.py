@@ -11,6 +11,12 @@ Para executar este projeto, você precisará atender aos seguintes requisitos:
 - **NetworkX**: Faça o download do pacote NetworkX. Você pode encontrar o tutorial completo em [networkx.org](https://networkx.org/).
 - **Matplotlib**: Instale o pacote Matplotlib para visualizações. Mais informações estão disponíveis em [matplotlib.org](https://matplotlib.org/stable/tutorials/index.html).
 
+## Instalação de dependências
+
+Para instalar as dependências necessárias, execute o seguinte comando:
+
+```bash pip install -r requirements.txt```
+
 ## Contato
 
 Se você tiver alguma dúvida ou precisar de suporte, sinta-se à vontade para entrar em contato conosco em [eng.takingami@gmail.com].
