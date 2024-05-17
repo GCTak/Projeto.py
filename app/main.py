@@ -30,12 +30,16 @@ def main():
             pos = nx.spring_layout(G)
             edge_labels = nx.get_edge_attributes(G, 'weight')
             view_graph(G, pos, edge_labels)
-            
-            
-            
 
         elif choosed_option == 4:
-            pass
+            segmentA = input('Digite o nome do bairro de origem:\n')
+            segmentB = input('Digite o nome do bairro de destino:\n')
+            way, cost = small_way(G, segmentA, segmentB)
+            if way:
+                print(f'O caminho de custo mínimo de {segmentA} para {segmentB} é: {way}')
+                print(f'O custo desse caminho é: {cost} milhões de reais')
+            else:
+                print(f'Não há caminho disponível de {segmentA} para {segmentB}')
 
         elif choosed_option == 5:
             pass
@@ -122,6 +126,14 @@ def view_graph(G, pos, edge_labels):
     except Exception as e:
         print(f"Erro ao gerar a visualização do grafo: {e}")
 
+def small_way(G, segmentA , segmentB):
+    try:
+        way = nx.dijkstra_path(G, segmentA, segmentB, weight='weight')
+        cost = nx.dijkstra_path_length(G, segmentA, segmentB, weight='weight')
+        return way, cost
+    except nx.NetworkXNoPath:
+        return None, float('inf')
+    
 def close_program():
     print(f"Programa encerrado.")
     exit()
