@@ -19,7 +19,7 @@ Para instalar as dependências necessárias, execute o seguinte comando:
 
 ## Observções
 
-Há duas soluções viáveis para o problema em consideração: uma abordagem mais básica, representada pelo arquivo 'projeto.py' localizado na ramificação 'noob-version', e uma abordagem mais avançada, representada pela aplicação contida na ramificação 'main'.
+Existem duas opções viáveis para resolver o problema em questão: uma abordagem mais simples, refletida no arquivo 'noob_version.py', e uma abordagem mais avançada, encontrada na pasta 'app'.
 
 ## Contato
 
