@@ -17,9 +17,14 @@ Para instalar as dependências necessárias, execute o seguinte comando:
 
 ```bash pip install -r requirements.txt```
 
-## Observções
+## Observações
 
-Existem duas opções viáveis para resolver o problema em questão: uma abordagem mais simples, refletida no arquivo 'noob_version.py', e uma abordagem mais avançada, encontrada na pasta 'app'.
+Existem duas opções viáveis para resolver o problema em questão:
+
+1. Uma abordagem mais simples, refletida no arquivo `noob_version.py`.
+2. Uma abordagem mais avançada, encontrada na pasta `app`.
+
+Para a execução do arquivo `noob_version.py`, não é necessário instalar dependências adicionais.
 
 ## Contato
 
