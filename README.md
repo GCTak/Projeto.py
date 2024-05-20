@@ -9,7 +9,7 @@ Para executar a versão mais simples da solução, conforme refletida no arquivo
 - **Python**: Certifique-se de ter o Python instalado em sua máquina. Você pode baixá-lo em [python.org](https://www.python.org/).
 - **NetworkX**: Faça o download do pacote NetworkX. Um tutorial completo está disponível em [networkx.org](https://networkx.org/).
 - **Matplotlib**: Instale o pacote Matplotlib para visualizações. Mais informações podem ser encontradas em [matplotlib.org](https://matplotlib.org/stable/tutorials/index.html).
-- **Pandas**: Instale o pacote Pandas para manipulação de dados. Você pode encontrá-lo em [pypi.org](https://pypi.org/project/pandas/).
+- **Pandas**: Instale o pacote Pandas para manipulação de dados. Você pode encontrá-lo em [pandas.org](https://pypi.org/project/pandas/).
 
 Para executar a versão mais avançada da solução, localizada na pasta `app`, execute o seguinte comando:
 
