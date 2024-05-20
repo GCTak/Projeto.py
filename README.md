@@ -24,8 +24,6 @@ Existem duas opções viáveis para resolver o problema em questão:
 1. Uma abordagem mais simples, refletida no arquivo `noob_version.py`.
 2. Uma abordagem mais avançada, encontrada na pasta `app`.
 
-Para a execução do arquivo `noob_version.py`, não é necessário executar a instalação de dependências.
-
 ## Contato
 
 Se você tiver alguma dúvida ou precisar de suporte, sinta-se à vontade para entrar em contato conosco em [eng.takingami@gmail.com].
