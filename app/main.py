@@ -63,7 +63,8 @@ def main():
                 print("Um ou ambos os bairros não foram encontrados.")
 
         elif choosed_option == 5:
-            pass
+            topology(G)
+
         elif choosed_option == 6:
             node_names, adjacency_matrix = G.adjacent_matrix()
             print("Matriz de Adjacência:")
@@ -136,6 +137,11 @@ def small_way(g, node_a, node_b):
 def tree(G):
     AGM = nx.minimum_spanning_tree(G, algorithm='kruskal')
     return AGM
+
+def topology(G):
+    AGM = tree(G)
+    print(list(AGM.edges(data=True)))
+    view_graph_on_map(AGM)
 
 def close_program():
     print("Programa encerrado.")
