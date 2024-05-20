@@ -1,51 +1,76 @@
 #encoding: utf-8
 import networkx as nx
 import matplotlib.pyplot as plt
-from classes import Neighborhood
+import contextily as ctx
+import geopandas as gpd
+from shapely.geometry import Point
+from classes import Neighborhood, Node, Graph, Segment
 
 def main():
-    print(f"Instalação da rede de internet fibra ótica")
-    print(f"==========================================")
+    print("Instalação da rede de internet fibra ótica")
+    print("==========================================")
+    G = Graph()
+    neighborhoods = []
+    network_segments = []
+
     while True:
         choosed_option = menu()
-        neighboorhoods = []
-        network_segments = []
-        G = nx.Graph()
 
         if choosed_option == 1:
-            number_of_neighboorhoods = int(input("Digite o número de bairros a serem cadastrados: "))
-            neighboorhoods = register_neighborhood(number_of_neighboorhoods)
+            number_of_neighborhoods = int(input("Digite o número de bairros a serem cadastrados: "))
+            neighborhoods = register_neighborhood(number_of_neighborhoods)
+            for neighborhood in neighborhoods:
+                G.add_node(Node(neighborhood))
 
         elif choosed_option == 2:
-            segmentA = input("Digite o nome do bairro de origem: ")
-            segmentB = input("Digite o nome do bairro de destino: ")
-            weight = float(input("Digite o custo do segmento de rede: "))
-            network_segments.append(register_network_segment(segmentA, segmentB, weight))
+            segmentA_name = input("Digite o nome do bairro de origem: ")
+            segmentB_name = input("Digite o nome do bairro de destino: ")
+            cost_per_km = input("Digite o custo por km do segmento de rede: ")
+            if not cost_per_km:
+                cost_per_km = 1
+            
+            
+            
+            segmentA = next((neighborhood for neighborhood in neighborhoods if neighborhood.name == segmentA_name), None)
+            segmentB = next((neighborhood for neighborhood in neighborhoods if neighborhood.name == segmentB_name), None)
+            
+            if segmentA and segmentB:
+                segment = Segment(segmentA, segmentB, cost_per_km)
+                network_segments.append(segment)
+                nodeA = next(node for node in G.nodes if node.neighborhood.name == segmentA_name)
+                nodeB = next(node for node in G.nodes if node.neighborhood.name == segmentB_name)
+                G.add_edge(nodeA, nodeB, segment.weight)
+            else:
+                print("Um ou ambos os bairros não foram encontrados.")
 
         elif choosed_option == 3:
-            for segment in network_segments:
-                segmentA, segmentB, weight = segment
-                G.add_edge(segmentA, segmentB, weight=weight)
-            
-            pos = nx.spring_layout(G)
-            edge_labels = nx.get_edge_attributes(G, 'weight')
-            view_graph(G, pos, edge_labels)
+            view_graph_on_map(G)
 
         elif choosed_option == 4:
-            segmentA = input('Digite o nome do bairro de origem:\n')
-            segmentB = input('Digite o nome do bairro de destino:\n')
-            way, cost = small_way(G, segmentA, segmentB)
-            if way:
-                print(f'O caminho de custo mínimo de {segmentA} para {segmentB} é: {way}')
-                print(f'O custo desse caminho é: {cost} milhões de reais')
+            segmentA_name = input('Digite o nome do bairro de origem:\n')
+            segmentB_name = input('Digite o nome do bairro de destino:\n')
+            nodeA = next((node for node in G.nodes if node.neighborhood.name == segmentA_name), None)
+            nodeB = next((node for node in G.nodes if node.neighborhood.name == segmentB_name), None)
+            
+            if nodeA and nodeB:
+                way, cost = small_way(G, nodeA, nodeB)
+                if way:
+                    print(f'O caminho de custo mínimo de {segmentA_name} para {segmentB_name} é: {way}')
+                    print(f'O custo desse caminho é: {cost} milhões de reais')
+                else:
+                    print(f'Não há caminho disponível de {segmentA_name} para {segmentB_name}')
             else:
-                print(f'Não há caminho disponível de {segmentA} para {segmentB}')
+                print("Um ou ambos os bairros não foram encontrados.")
 
         elif choosed_option == 5:
             pass
 
         elif choosed_option == 6:
-            pass
+            node_names, adjacency_matrix = G.adjacent_matrix()
+            print("Matriz de Adjacência:")
+            print("  " + " ".join(node_names))
+            for name, row in zip(node_names, adjacency_matrix):
+                print(f"{name} {' '.join(map(str, row))}")
 
         elif choosed_option == 7:
             pass
@@ -54,89 +79,105 @@ def main():
             close_program()
 
         else:
-            print(f"Opção inválida")
+            print("Opção inválida")
             continue
 
 def menu() -> int:
-    print(f"")
-    print(f"Menu")
-    print(f"==========================================")
-    print(f"1. Cadastrar bairro")
-    print(f"2. Cadastrar segmento de rede")
-    print(f"3. Visualizar grafo")
-    print(f"4. Calcular menor caminho para novo segmento de rede")
-    print(f"5. Gerar topologia de rede de custo minimo")
-    print(f"6. Gerar matriz de adjacência")
-    print(f"7. Gerar árvore geradora mínima")
-    print(f"8. Sair")
-    print(f"")
+    print("")
+    print("Menu")
+    print("==========================================")
+    print("1. Cadastrar bairro")
+    print("2. Cadastrar segmento de rede")
+    print("3. Visualizar grafo")
+    print("4. Calcular menor caminho para novo segmento de rede")
+    print("5. Gerar topologia de rede de custo minimo")
+    print("6. Gerar matriz de adjacência")
+    print("7. Gerar árvore geradora mínima")
+    print("8. Sair")
+    print("")
     while True:
         try:
             option = int(input("--- Digite o número da opção escolhida: "))
             if option not in range(1, 9):
-                print(f"Opção inválida")
+                print("Opção inválida")
             else:
                 return option
         except ValueError:
-            print(f"Opção inválida")
+            print("Opção inválida")
 
-
-def register_neighborhood(number_of_neighboorhoods: int) -> list:
-    neighboorhoods = []
-    if number_of_neighboorhoods <= 0 or not isinstance(number_of_neighboorhoods, int):
-        print(f"Número de bairros inválido.")
-        return neighboorhoods
+def register_neighborhood(number_of_neighborhoods: int) -> list:
+    neighborhoods = []
+    if number_of_neighborhoods <= 0 or not isinstance(number_of_neighborhoods, int):
+        print("Número de bairros inválido.")
+        return neighborhoods
         
-    for i in range(number_of_neighboorhoods):
+    for i in range(number_of_neighborhoods):
         name = input("Digite o nome do bairro: ")
         coordenada = input("Digite a latitude e longitude do bairro (separados por vírgula): ")
-        latitude, longitude = coordenada.split(",")
-        latitude = float(latitude)
-        longitude = float(longitude)
+        latitude, longitude = map(float, coordenada.split(","))
         city = input("Digite a cidade do bairro: ")
         if city == "":
-            neighboorhoods.append(Neighborhood(name, latitude, longitude))
+            neighborhoods.append(Neighborhood(name, latitude, longitude))
         else:
-            neighboorhoods.append(Neighborhood(name, latitude, longitude, city))
-    return neighboorhoods
+            neighborhoods.append(Neighborhood(name, latitude, longitude, city))
+    return neighborhoods
 
-def register_network_segment(segmentA: str, segmentB: str, weight: float) -> tuple:
-    return (segmentA, segmentB, {'weight': weight})
-
-def view_graph(G, pos, edge_labels):
+def small_way(G, nodeA, nodeB):
     try:
-        nx.draw(
-            G,
-            pos,
-            with_labels=True,
-            node_size=1000,
-            node_color='lightblue',
-            font_weight='bold',
-            arrowsize=20
-        )
-        nx.draw_networkx_edge_labels(
-            G,
-            pos,
-            edge_labels=edge_labels,
-            label_pos=0.5,  
-            font_size=10,   
-            font_color='red' 
-        )
-        plt.show()
-    except Exception as e:
-        print(f"Erro ao gerar a visualização do grafo: {e}")
+        node_dict = {node.neighborhood.name: node for node in G.nodes}
+        graph_nx = nx.Graph()
+        for node in G.nodes:
+            for neighbor, weight in node.adjacent_nodes.items():
+                graph_nx.add_edge(node.neighborhood.name, neighbor.neighborhood.name, weight=weight)
 
-def small_way(G, segmentA , segmentB):
-    try:
-        way = nx.dijkstra_path(G, segmentA, segmentB, weight='weight')
-        cost = nx.dijkstra_path_length(G, segmentA, segmentB, weight='weight')
+        way = nx.dijkstra_path(graph_nx, nodeA.neighborhood.name, nodeB.neighborhood.name, weight='weight')
+        cost = nx.dijkstra_path_length(graph_nx, nodeA.neighborhood.name, nodeB.neighborhood.name, weight='weight')
         return way, cost
     except nx.NetworkXNoPath:
         return None, float('inf')
-    
+
 def close_program():
-    print(f"Programa encerrado.")
+    print("Programa encerrado.")
     exit()
+
+def view_graph_on_map(G):
+    #O no do grafico deve ter o texto com o nome do bairro
+    node_positions = {}
+    for node in G.nodes:
+        node_positions[node.neighborhood.name] = (node.neighborhood.longitude, node.neighborhood.latitude)
+    
+    node_gdf = gpd.GeoDataFrame(
+        {'neighborhood': [node.neighborhood.name for node in G.nodes]},
+        geometry=[Point(node.neighborhood.longitude, node.neighborhood.latitude) for node in G.nodes],
+        crs="EPSG:4326"
+    )
+
+    fig, ax = plt.subplots(figsize=(20, 20))
+
+    # Plot nodes
+    node_gdf.plot(ax=ax, color='blue')
+
+    # Plot edges and add edge labels
+    for node in G.nodes:
+        for neighbor, weight in node.adjacent_nodes.items():
+            x_values = [node.neighborhood.longitude, neighbor.neighborhood.longitude]
+            y_values = [node.neighborhood.latitude, neighbor.neighborhood.latitude]
+            ax.plot(x_values, y_values, color='black')
+            mid_x = (x_values[0] + x_values[1]) / 2
+            mid_y = (y_values[0] + y_values[1]) / 2
+            ax.text(mid_x, mid_y, f'{weight:.2f}', color='red', fontsize=11, ha='center', va='center', bbox=dict(facecolor='white', alpha=0.5, edgecolor='none'), zorder=5)
+
+    # Plot node labels
+    for node, position in node_positions.items():
+        ax.text(position[0], position[1], node, fontsize=10, ha='center', va='center', bbox=dict(facecolor='white', alpha=0.5, edgecolor='none'), zorder=5)
+
+    # Add basemap
+    ctx.add_basemap(ax, crs=node_gdf.crs.to_string(), source=ctx.providers.CartoDB.Positron)
+
+    
+    
+    
+    plt.show()
 
 if __name__ == "__main__":
     main()
