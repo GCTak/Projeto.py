@@ -63,7 +63,7 @@ def main():
                 print("Um ou ambos os bairros não foram encontrados.")
 
         elif choosed_option == 5:
-            topology(G)
+            pass
 
         elif choosed_option == 6:
             node_names, adjacency_matrix = G.adjacent_matrix()
@@ -73,7 +73,7 @@ def main():
                 print(f"{name} {' '.join(map(str, row))}")
 
         elif choosed_option == 7:
-            tree(G)
+            pass
 
         elif choosed_option == 8:
             close_program()
@@ -133,15 +133,6 @@ def small_way(g, node_a, node_b):
         return way, cost
     except nx.NetworkXNoPath:
         return None, float('inf')
-    
-def tree(G):
-    AGM = nx.minimum_spanning_tree(G, algorithm='kruskal')
-    return AGM
-
-def topology(G):
-    AGM = tree(G)
-    print(list(AGM.edges(data=True)))
-    view_graph_on_map(AGM)
 
 def close_program():
     print("Programa encerrado.")
