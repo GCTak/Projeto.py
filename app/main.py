@@ -15,7 +15,6 @@ def main():
     neighborhoods = []
     network_segments = []
     
-
     while True:
         choosed_option = menu()
 
@@ -67,7 +66,6 @@ def main():
 
         elif choosed_option == 5:
             pass
-
         elif choosed_option == 6:
             node_names, adjacency_matrix = G.adjacent_matrix()
             print("Matriz de Adjacência:")
@@ -76,7 +74,7 @@ def main():
                 print(f"{name} {' '.join(map(str, row))}")
 
         elif choosed_option == 7:
-            pass
+            tree(G)
 
         elif choosed_option == 8:
             close_program()
@@ -87,7 +85,7 @@ def main():
 def menu() -> int:
     print("")
     print("Menu")
-    print("==========================================")
+    print("")
     print("1. Cadastrar bairro")
     print("2. Cadastrar segmento de rede")
     print("3. Visualizar grafo")
@@ -136,6 +134,10 @@ def small_way(g, node_a, node_b):
         return way, cost
     except nx.NetworkXNoPath:
         return None, float('inf')
+    
+def tree(G):
+    AGM = nx.minimum_spanning_tree(G, algorithm='kruskal')
+    return AGM
 
 def close_program():
     print("Programa encerrado.")
