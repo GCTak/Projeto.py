@@ -31,8 +31,6 @@ def main():
             if not cost_per_km:
                 cost_per_km = 1
             
-            
-            
             segment_a = next((neighborhood for neighborhood in neighborhoods if neighborhood.name == segment_a_name), None)
             segment_b = next((neighborhood for neighborhood in neighborhoods if neighborhood.name == segment_b_name), None)
             
@@ -85,7 +83,7 @@ def main():
 def menu() -> int:
     print("")
     print("Menu")
-    print("")
+    print("==========================================")
     print("1. Cadastrar bairro")
     print("2. Cadastrar segmento de rede")
     print("3. Visualizar grafo")
@@ -177,9 +175,6 @@ def view_graph_on_map(g : Graph):
     # Add basemap
     ctx.add_basemap(ax, crs=node_gdf.crs.to_string(), source=ctx.providers.CartoDB.Positron)
 
-    
-    
-    
     plt.show()
 
 if __name__ == "__main__":
