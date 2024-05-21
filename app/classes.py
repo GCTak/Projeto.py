@@ -107,28 +107,28 @@ class Graph:
         for n in self.nodes:
             n.remove_edge(node)
 
-    def add_edge(self, nodeA, nodeB, weight=1):
+    def add_edge(self, node_a, node_b, weight=1):
         """
         Adiciona uma aresta entre dois nós com um peso específico.
         """
-        nodeA.add_edge(nodeB, weight)
-        nodeB.add_edge(nodeA, weight)
+        node_a.add_edge(node_b, weight)
+        node_b.add_edge(node_a, weight)
 
-    def remove_edge(self, nodeA, nodeB):
+    def remove_edge(self, node_a, node_b):
         """
         Remove uma aresta entre dois nós.
         """
-        nodeA.remove_edge(nodeB)
-        nodeB.remove_edge(nodeA)
+        node_a.remove_edge(node_b)
+        node_b.remove_edge(node_a)
 
-    def set_weight(self, nodeA, nodeB, weight):
+    def set_weight(self, node_a, node_b, weight):
         """
         Define o peso de uma aresta entre dois nós.
         """
-        if nodeB in nodeA.adjacent_nodes:
-            nodeA.adjacent_nodes[nodeB] = weight
-        if nodeA in nodeB.adjacent_nodes:
-            nodeB.adjacent_nodes[nodeA] = weight
+        if node_b in node_a.adjacent_nodes:
+            node_a.adjacent_nodes[node_b] = weight
+        if node_a in node_b.adjacent_nodes:
+            node_b.adjacent_nodes[node_a] = weight
     
     def print_weights(self):
         for node in self.nodes:
@@ -136,11 +136,11 @@ class Graph:
             for neighbor, weight in node.adjacent_nodes.items():
                 print(f"Vizinho: {neighbor.neighborhood.name} - Peso: {weight}")
 
-    def print_weight(self, nodeA, nodeB):
-        if nodeB in nodeA.adjacent_nodes:
-            print(f"Peso da aresta entre {nodeA.neighborhood.name} e {nodeB.neighborhood.name}: {nodeA.adjacent_nodes[nodeB]}")
+    def print_weight(self, node_a, node_b):
+        if node_b in node_a.adjacent_nodes:
+            print(f"Peso da aresta entre {node_a.neighborhood.name} e {node_b.neighborhood.name}: {node_a.adjacent_nodes[node_b]}")
         else:
-            print(f"Não há uma aresta entre {nodeA.neighborhood.name} e {nodeB.neighborhood.name}.")
+            print(f"Não há uma aresta entre {node_a.neighborhood.name} e {node_b.neighborhood.name}.")
 
     def adjacent_matrix(self):
             """
@@ -176,18 +176,18 @@ class Graph:
 
 
 class Segment:
-    def __init__(self, segmentA, segmentB, cost_per_km=1):
+    def __init__(self, segment_a, segment_b, cost_per_km=1):
         #Segmento A se refere ao bairro de origem
-        self.segmentA = segmentA
-        self.segmentB = segmentB
+        self.segment_a = segment_a
+        self.segment_b = segment_b
         self.cost_per_km = cost_per_km
 
-        distance = segmentA.distance_to(segmentB)
+        distance = segment_a.distance_to(segment_b)
         self.weight = distance * cost_per_km
 
     def set_cost(self, cost_per_km):
         self.cost_per_km = cost_per_km
-        distance = self.segmentA.distance_to(self.segmentB)
+        distance = self.segment_a.distance_to(self.segment_b)
         self.weight = distance * cost_per_km
 
     def get_cost(self):
@@ -196,24 +196,24 @@ class Segment:
     def get_weight(self):
         return self.weight
     
-    def get_segmentA(self):
-        return self.segmentA
+    def get_segment_a(self):
+        return self.segment_a
     
-    def get_segmentB(self):
-        return self.segmentB
+    def get_segment_b(self):
+        return self.segment_b
     
-    def set_segmentA(self, segmentA):
-        self.segmentA = segmentA
-        distance = segmentA.distance_to(self.segmentB)
+    def set_segment_a(self, segment_a):
+        self.segment_a = segment_a
+        distance = segment_a.distance_to(self.segment_b)
         self.weight = distance * self.cost_per_km
 
-    def set_segmentB(self, segmentB):
-        self.segmentB = segmentB
-        distance = self.segmentA.distance_to(segmentB)
+    def set_segment_b(self, segment_b):
+        self.segment_b = segment_b
+        distance = self.segment_a.distance_to(segment_b)
         self.weight = distance * self.cost_per_km
     
     def __str__(self):
-        return "Segmento de rede entre {} e {} com custo de R${:.2f}, sendo R${:.2F}/km de custo.".format(self.segmentA, self.segmentB, self.weight, self.cost_per_km)
+        return "Segmento de rede entre {} e {} com custo de R${:.2f}, sendo R${:.2F}/km de custo.".format(self.segment_a, self.segment_b, self.weight, self.cost_per_km)
 
     def __repr__(self):
-        return f"{self.segmentA} - {self.segmentB} - {self.cost_per_km}"
+        return f"{self.segment_a} - {self.segment_b} - {self.cost_per_km}"
