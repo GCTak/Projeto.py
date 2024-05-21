@@ -4,29 +4,13 @@ Este projeto é parte da disciplina de Laboratório de Programação Competitiva
 
 ## Requisitos
 
-Para executar a versão mais simples da solução, conforme refletida no arquivo `noob_version.py`, é necessário garantir que os seguintes requisitos sejam atendidos:
-
-- **Python**: Certifique-se de ter o Python instalado em sua máquina. Você pode baixá-lo em [python.org](https://www.python.org/).
-- **NetworkX**: Faça o download do pacote NetworkX. Um tutorial completo está disponível em [networkx.org](https://networkx.org/).
-- **Matplotlib**: Instale o pacote Matplotlib para visualizações. Mais informações podem ser encontradas em [matplotlib.org](https://matplotlib.org/stable/tutorials/index.html).
-- **Pandas**: Instale o pacote Pandas para manipulação de dados. Você pode encontrá-lo em [pandas.org](https://pypi.org/project/pandas/).
-
-Para executar a versão mais avançada da solução, localizada na pasta `app`, execute o seguinte comando:
+Para executar o código, é necessário que você instale algumas dependências. Portanto, execute o seguinte comando:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Observações
-
-Existem duas opções viáveis para resolver o problema em questão:
-
-1. Uma abordagem mais simples, refletida no arquivo `noob_version.py`.
-2. Uma abordagem mais avançada, encontrada na pasta `app`.
-
-## Contato
-
-Se você tiver alguma dúvida ou precisar de suporte, sinta-se à vontade para entrar em contato conosco em [eng.takingami@gmail.com].
+Se você tiver alguma dúvida ou precisar de suporte, sinta-se à vontade para entrar em contato conosco.
 
 ---
 © 2024
