@@ -31,6 +31,8 @@ def main():
             cost_per_km = input("Digite o custo por km do segmento de rede: ")
             if not cost_per_km:
                 cost_per_km = 1
+            else:
+                cost_per_km = float(cost_per_km)
             
             
             
