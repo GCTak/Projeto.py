@@ -1,0 +1,57 @@
+[
+    {
+      "Name": "Centro",
+      "Coordinates": "-18.912433169855422, -48.274302642611985",
+      "City": "Uberlandia"
+    },
+    {
+      "Name": "Umuarama",
+      "Coordinates": "-18.883020415272934, -48.26029445756809",
+      "City": "Uberlandia"
+    },
+    {
+      "Name": "Marta_Helena",
+      "Coordinates": "-18.879850590591296, -48.26685757281018",
+      "City": "Uberlandia"
+    },
+    {
+      "Name": "Santa_Monica",
+      "Coordinates": "-18.91843920889508, -48.257474245514175",
+      "City": "Uberlandia"
+    },
+    {
+      "Name": "Morada_da_Colina",
+      "Coordinates": "-18.957338942905203, -48.27777124805822",
+      "City": "Uberlandia"
+    },
+    {
+        "Name" : "Shopping_Park",
+        "Coordinates" : "-18.982230236625956, -48.26219255640831",
+        "City" : "Uberlandia"
+    },
+    {
+        "Name" : "Santa_Rosa",
+        "Coordinates" : "-18.88733107007362, -48.28182476031743",
+        "City" : "Uberlandia"
+    },
+    {
+        "Name" : "Jardim_Patricia",
+        "Coordinates" : "-18.911138967904325, -48.325805612848946",
+        "City" : "Uberlandia"
+    },
+    {
+        "Name": "Luizote",
+        "Coordinates": "-18.92052088377755, -48.331615924228906",
+        "City": "Uberlandia"
+    },
+    {
+        "Name": "Jardim_Europa",
+        "Coordinates": "-18.93941823186593, -48.33923131919358",
+        "City": "Uberlandia"
+    },
+    {
+        "Name": "Roosevelt",
+        "Coordinates": "-18.896633420360036, -48.285111217602214",
+        "City": "Uberlandia"
+    }
+  ]

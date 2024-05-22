@@ -1,4 +1,5 @@
 import math
+import heapq
 
 class Neighborhood:
     def __init__(self, name, latitude, longitude, city=None):
@@ -217,3 +218,4 @@ class Segment:
 
     def __repr__(self):
         return f"{self.segment_a} - {self.segment_b} - {self.cost_per_km}"
+    
