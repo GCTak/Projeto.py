@@ -76,7 +76,10 @@ def main():
             print(tabulate(table, headers=[""] + node_names, tablefmt="pretty"))
 
         elif choosed_option == 7:
-            pass
+            mst = generate_mst(G)
+            view_graph(mst)
+            
+
 
         elif choosed_option == 8:
             loaded_neighborhoods = load_neighborhoods()

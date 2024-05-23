@@ -218,3 +218,21 @@ def generate_minimum_spanning_tree(g: Graph):
 
 def view_mst_on_map(mst_graph):
     view_graph_on_map(mst_graph, is_mst=True)
+
+def generate_mst(custom_graph):
+    # Crie um grafo NetworkX a partir do seu grafo personalizado
+    nx_graph = nx.Graph()
+    for node in custom_graph.nodes:
+        for neighbor, weight in node.adjacent_nodes.items():
+            nx_graph.add_edge(node.name, neighbor.name, weight=weight)
+
+    # Gere a MST usando o algoritmo de Prim
+    mst = nx.minimum_spanning_tree(nx_graph, algorithm='prim')
+
+    return mst
+
+
+def view_graph(graph):
+    _, ax = plt.subplots()
+    nx.draw(graph, ax=ax, with_labels=True, font_weight='bold')
+    plt.show()    
