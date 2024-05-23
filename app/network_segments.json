@@ -1,0 +1,277 @@
+[
+    {
+        "from": "Centro",
+        "to": "Umuarama",
+        "cost_per_km": 4
+    },
+    {
+        "from": "Centro",
+        "to": "Marta_Helena",
+        "cost_per_km": 7
+    },
+    {
+        "from": "Centro",
+        "to": "Santa_Monica",
+        "cost_per_km": 5
+    },
+    {
+        "from": "Centro",
+        "to": "Morada_da_Colina",
+        "cost_per_km": 3
+    },
+    {
+        "from": "Centro",
+        "to": "Shopping_Park",
+        "cost_per_km": 6
+    },
+    {
+        "from": "Centro",
+        "to": "Santa_Rosa",
+        "cost_per_km": 2
+    },
+    {
+        "from": "Centro",
+        "to": "Jardim_Patricia",
+        "cost_per_km": 8
+    },
+    {
+        "from": "Centro",
+        "to": "Luizote",
+        "cost_per_km": 4
+    },
+    {
+        "from": "Centro",
+        "to": "Jardim_Europa",
+        "cost_per_km": 7
+    },
+    {
+        "from": "Centro",
+        "to": "Roosevelt",
+        "cost_per_km": 3
+    },
+    {
+        "from": "Umuarama",
+        "to": "Marta_Helena",
+        "cost_per_km": 9
+    },
+    {
+        "from": "Umuarama",
+        "to": "Santa_Monica",
+        "cost_per_km": 6
+    },
+    {
+        "from": "Umuarama",
+        "to": "Morada_da_Colina",
+        "cost_per_km": 4
+    },
+    {
+        "from": "Umuarama",
+        "to": "Shopping_Park",
+        "cost_per_km": 5
+    },
+    {
+        "from": "Umuarama",
+        "to": "Santa_Rosa",
+        "cost_per_km": 3
+    },
+    {
+        "from": "Umuarama",
+        "to": "Jardim_Patricia",
+        "cost_per_km": 8
+    },
+    {
+        "from": "Umuarama",
+        "to": "Luizote",
+        "cost_per_km": 4
+    },
+    {
+        "from": "Umuarama",
+        "to": "Jardim_Europa",
+        "cost_per_km": 7
+    },
+    {
+        "from": "Umuarama",
+        "to": "Roosevelt",
+        "cost_per_km": 2
+    },
+    {
+        "from": "Marta_Helena",
+        "to": "Santa_Monica",
+        "cost_per_km": 6
+    },
+    {
+        "from": "Marta_Helena",
+        "to": "Morada_da_Colina",
+        "cost_per_km": 7
+    },
+    {
+        "from": "Marta_Helena",
+        "to": "Shopping_Park",
+        "cost_per_km": 5
+    },
+    {
+        "from": "Marta_Helena",
+        "to": "Santa_Rosa",
+        "cost_per_km": 2
+    },
+    {
+        "from": "Marta_Helena",
+        "to": "Jardim_Patricia",
+        "cost_per_km": 8
+    },
+    {
+        "from": "Marta_Helena",
+        "to": "Luizote",
+        "cost_per_km": 4
+    },
+    {
+        "from": "Marta_Helena",
+        "to": "Jardim_Europa",
+        "cost_per_km": 9
+    },
+    {
+        "from": "Marta_Helena",
+        "to": "Roosevelt",
+        "cost_per_km": 3
+    },
+    {
+        "from": "Santa_Monica",
+        "to": "Morada_da_Colina",
+        "cost_per_km": 6
+    },
+    {
+        "from": "Santa_Monica",
+        "to": "Shopping_Park",
+        "cost_per_km": 5
+    },
+    {
+        "from": "Santa_Monica",
+        "to": "Santa_Rosa",
+        "cost_per_km": 7
+    },
+    {
+        "from": "Santa_Monica",
+        "to": "Jardim_Patricia",
+        "cost_per_km": 8
+    },
+    {
+        "from": "Santa_Monica",
+        "to": "Luizote",
+        "cost_per_km": 4
+    },
+    {
+        "from": "Santa_Monica",
+        "to": "Jardim_Europa",
+        "cost_per_km": 3
+    },
+    {
+        "from": "Santa_Monica",
+        "to": "Roosevelt",
+        "cost_per_km": 2
+    },
+    {
+        "from": "Morada_da_Colina",
+        "to": "Shopping_Park",
+        "cost_per_km": 5
+    },
+    {
+        "from": "Morada_da_Colina",
+        "to": "Santa_Rosa",
+        "cost_per_km": 4
+    },
+    {
+        "from": "Morada_da_Colina",
+        "to": "Jardim_Patricia",
+        "cost_per_km": 7
+    },
+    {
+        "from": "Morada_da_Colina",
+        "to": "Luizote",
+        "cost_per_km": 6
+    },
+    {
+        "from": "Morada_da_Colina",
+        "to": "Jardim_Europa",
+        "cost_per_km": 3
+    },
+    {
+        "from": "Morada_da_Colina",
+        "to": "Roosevelt",
+        "cost_per_km": 8
+    },
+    {
+        "from": "Shopping_Park",
+        "to": "Santa_Rosa",
+        "cost_per_km": 9
+    },
+    {
+        "from": "Shopping_Park",
+        "to": "Jardim_Patricia",
+        "cost_per_km": 2
+    },
+    {
+        "from": "Shopping_Park",
+        "to": "Luizote",
+        "cost_per_km": 4
+    },
+    {
+        "from": "Shopping_Park",
+        "to": "Jardim_Europa",
+        "cost_per_km": 5
+    },
+    {
+        "from": "Shopping_Park",
+        "to": "Roosevelt",
+        "cost_per_km": 7
+    },
+    {
+        "from": "Santa_Rosa",
+        "to": "Jardim_Patricia",
+        "cost_per_km": 6
+    },
+    {
+        "from": "Santa_Rosa",
+        "to": "Luizote",
+        "cost_per_km": 3
+    },
+    {
+        "from": "Santa_Rosa",
+        "to": "Jardim_Europa",
+        "cost_per_km": 4
+    },
+    {
+        "from": "Santa_Rosa",
+        "to": "Roosevelt",
+        "cost_per_km": 2
+    },
+    {
+        "from": "Jardim_Patricia",
+        "to": "Luizote",
+        "cost_per_km": 8
+    },
+    {
+        "from": "Jardim_Patricia",
+        "to": "Jardim_Europa",
+        "cost_per_km": 5
+    },
+    {
+        "from": "Jardim_Patricia",
+        "to": "Roosevelt",
+        "cost_per_km": 6
+    },
+    {
+        "from": "Luizote",
+        "to": "Jardim_Europa",
+        "cost_per_km": 7
+    },
+    {
+        "from": "Luizote",
+        "to": "Roosevelt",
+        "cost_per_km": 9
+    },
+    {
+        "from": "Jardim_Europa",
+        "to": "Roosevelt",
+        "cost_per_km": 4
+    }
+]

@@ -33,7 +33,34 @@ def load_neighborhoods():
     except Exception as e:
         print(e)
         return False
-    
+
+def load_segments(neighborhoods):
+    try:
+        if os.path.exists('network_segments.json'):
+            with open('network_segments.json', 'r') as file:
+                segments_data = json.load(file)
+                segments = []
+                for segment in segments_data:
+                    segment_a_name = segment["from"]
+                    segment_b_name = segment["to"]
+                    cost_per_km = segment["cost_per_km"]
+
+                    # Encontre os objetos de bairro correspondentes
+                    segment_a = next((n for n in neighborhoods if n.name == segment_a_name), None)
+                    segment_b = next((n for n in neighborhoods if n.name == segment_b_name), None)
+
+                    if segment_a is None or segment_b is None:
+                        print(f"Não foi possível encontrar um ou ambos os bairros: {segment_a_name}, {segment_b_name}")
+                        continue
+
+                    print(f"Segmento de {segment_a.name} para {segment_b.name} com custo por km de {cost_per_km}")
+                    segments.append(Segment(segment_a, segment_b, float(cost_per_km)))
+
+            print("Segmentos carregados com sucesso.")
+            return segments
+    except Exception as e:
+        print(e)
+        return []
     
 def menu() -> int:
     print("")
@@ -46,13 +73,14 @@ def menu() -> int:
     print("5. Gerar topologia de rede de custo minimo")
     print("6. Gerar matriz de adjacência")
     print("7. Gerar árvore geradora mínima")
-    print("8. Carregar bairros de arquivo")
-    print("9. Sair")
+    print("8. Carregar bairros do arquivo")
+    print("9. Carregar segmentos do arquivo")
+    print("10. Sair")
     print("")
     while True:
         try:
             option = int(input("--- Digite o número da opção escolhida: "))
-            if option not in range(1, 10):
+            if option not in range(1, 11):
                 print(INVALID_OPTION)
             else:
                 return option
@@ -97,6 +125,12 @@ def close_program():
 def view_graph_on_map(g : Graph, is_mst=False):
     #O no do grafico deve ter o texto com o nome do bairro
     node_positions = {}
+    if not g.nodes:
+        print("A lista de nós está vazia.")
+        return
+    else:
+        print("A lista de nós não está vazia.")
+    
     for node in g.nodes:
         node_positions[node.neighborhood.name] = (node.neighborhood.longitude, node.neighborhood.latitude)
     
@@ -105,14 +139,24 @@ def view_graph_on_map(g : Graph, is_mst=False):
         geometry=[Point(node.neighborhood.longitude, node.neighborhood.latitude) for node in g.nodes],
         crs="EPSG:4326"
     )
-
+    print(f"Subplot: {node_gdf.crs.to_string()}")
     _, ax = plt.subplots(figsize=(20, 20))
+    
+    # Se is_mst é True, plote os nós
     if is_mst:
-        ax.set_aspect('equal')
+        if node_gdf.is_valid.all():
+            node_gdf.plot(ax=ax, color='blue')
+        else:
+            print("Os dados em node_gdf não são válidos.")
+        
+        
 
+    print(f"Apos plotar os bairros: {node_gdf.crs.to_string()}")
+    print(node_gdf.head())
+    
     # Plot nodes
     node_gdf.plot(ax=ax, color='blue')
-
+    
     # Plot edges and add edge labels
     for node in g.nodes:
         for neighbor, weight in node.adjacent_nodes.items():
@@ -130,32 +174,46 @@ def view_graph_on_map(g : Graph, is_mst=False):
     # Add basemap
     ctx.add_basemap(ax, crs=node_gdf.crs.to_string(), source=ctx.providers.CartoDB.Positron)
     
-    # Define aspect ratio of y-axis manually if aspect is not finite or positive
-    if not np.isfinite(ax.get_aspect()):
-        ax.set_aspect(1)
+    # Define aspect ratio of y-axis manually if cos_value is not zero
+    y_coord = node_gdf.geometry.y.mean()
+    print(f"y_coord: {y_coord}")
+    cos_value = np.cos(y_coord * np.pi / 180)
+    print(f"cos_value: {cos_value}")
+    if cos_value != 0:
+        ax.set_aspect(1 / cos_value)
     
     plt.show()
 
-
-def generate_minimum_spanning_tree(graph):
-    """
-    Gera uma árvore geradora mínima a partir de um grafo.
-    """
+def generate_minimum_spanning_tree(g: Graph):
     mst_graph = Graph()
     visited = set()
-    heap = []
-    start_node = graph.nodes[0]
-    heapq.heappush(heap, (0, start_node, None))
-    while heap:
-        weight, node, parent = heapq.heappop(heap)
-        if node in visited:
-            continue
-        visited.add(node)
-        if parent:
-            mst_graph.add_edge(parent, node, weight)
-        for neighbor, w in node.adjacent_nodes.items():
-            if neighbor not in visited:
-                heapq.heappush(heap, (w, neighbor, node))
+
+    # Escolha um nó inicial arbitrário
+    start_node = next(iter(g.nodes))
+
+    # Use uma fila de prioridade para armazenar os segmentos com seus custos
+    edges = [(0, start_node.name, start_node.name)]
+
+    while edges:
+        # Obtenha o segmento de menor custo
+        cost, from_node_name, to_node_name = heapq.heappop(edges)
+        from_node = g.get_node(from_node_name)
+        to_node = g.get_node(to_node_name)
+
+        if to_node_name not in visited:
+            visited.add(to_node_name)
+
+            # Adicione os nós ao gráfico da árvore geradora mínima
+            mst_graph.add_node(from_node)
+            mst_graph.add_node(to_node)
+
+            # Adicione o segmento ao gráfico da árvore geradora mínima
+            mst_graph.add_edge(from_node, to_node, cost)
+    if not g.nodes:
+        print("Nenhum nó foi adicionado ao grafo.")
+    else:
+        print(f"{len(g.nodes)} nós foram adicionados ao grafo.")
+    print(f"MST_GRAPH: {mst_graph.nodes}")
     return mst_graph
 
 def view_mst_on_map(mst_graph):

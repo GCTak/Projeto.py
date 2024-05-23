@@ -64,6 +64,9 @@ class Node:
     def __init__(self, neighborhood):
         self.neighborhood = neighborhood
         self.adjacent_nodes = {}
+    @property
+    def name(self):
+        return self.neighborhood.name
     
     def add_edge(self, node, weight=1):
         """
@@ -122,6 +125,15 @@ class Graph:
         node_a.remove_edge(node_b)
         node_b.remove_edge(node_a)
 
+    def get_node(self, name):
+        """
+        Retorna um nó específico do grafo.
+        """
+        for node in self.nodes:
+            if node.neighborhood.name == name:
+                return node
+        return None
+
     def set_weight(self, node_a, node_b, weight):
         """
         Define o peso de uma aresta entre dois nós.
@@ -174,6 +186,27 @@ class Graph:
 
     def __repr__(self):
         return f"{[node.neighborhood.name for node in self.nodes]}"
+    
+    def get_adjacent_nodes(self, node):
+        """
+        Retorna todos os nós adjacentes a um nó específico.
+        """
+        return node.adjacent_nodes
+
+    def get_edge_weight(self, node_a, node_b):
+        """
+        Retorna o peso da aresta entre dois nós específicos.
+        """
+        for edge in node_a.adjacent_nodes:
+            if edge.neighborhood == node_b:
+                return edge.weight
+        return None
+
+    def edge_exists(self, node_a, node_b):
+        """
+        Verifica se uma aresta existe entre dois nós específicos.
+        """
+        return any(edge.neighborhood == node_b for edge in node_a.adjacent_nodes)
 
 
 class Segment:

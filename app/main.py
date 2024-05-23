@@ -1,7 +1,7 @@
 #encoding: utf-8
 from classes import Neighborhood, Node, Graph, Segment
 from functions import *
-
+from tabulate import tabulate
 
 def main():
     print("Instalação da rede de internet fibra ótica")
@@ -72,9 +72,8 @@ def main():
         elif choosed_option == 6:
             node_names, adjacency_matrix = G.adjacent_matrix()
             print("Matriz de Adjacência:")
-            print("  " + " ".join(node_names))
-            for name, row in zip(node_names, adjacency_matrix):
-                print(f"{name} {' '.join(map(str, row))}")
+            table = [ [name] + row for name, row in zip(node_names, adjacency_matrix) ]
+            print(tabulate(table, headers=[""] + node_names, tablefmt="pretty"))
 
         elif choosed_option == 7:
             pass
@@ -88,8 +87,24 @@ def main():
                     G.add_node(Node(neighborhood))
             else:
                 print("Não foi possível carregar os bairros do arquivo.")
-        
+
         elif choosed_option == 9:
+            # Carregue os bairros primeiro
+            neighborhoods = load_neighborhoods()
+            if neighborhoods is not False:
+                # Agora passe os bairros para a função load_segments
+                loaded_segments = load_segments(neighborhoods)
+                if loaded_segments is not None and loaded_segments != [] and loaded_segments != False:
+                    print("Segmentos de rede carregados com sucesso.")
+                    network_segments = loaded_segments
+                    for segment in network_segments:
+                        segment_a = next(node for node in G.nodes if node.neighborhood.name == segment.segment_a.name)
+                        segment_b = next(node for node in G.nodes if node.neighborhood.name == segment.segment_b.name)
+                        G.add_edge(segment_a, segment_b, segment.weight)
+                else:
+                    print("Não foi possível carregar os segmentos de rede do arquivo.")
+        
+        elif choosed_option == 10:
             close_program()
 
         else:
